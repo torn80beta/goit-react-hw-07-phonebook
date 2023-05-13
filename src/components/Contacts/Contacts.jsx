@@ -6,7 +6,7 @@ import {
   StyledContactsListUL,
 } from './Contacts.styled';
 import { useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
+import { getContacts, getFilter, getIsLoading } from 'redux/selectors';
 
 const getFilteredContacts = (contacts, filter) => {
   return contacts.filter(({ name }) => {
@@ -19,6 +19,7 @@ export const Contacts = ({ onDeleteContact }) => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
   const filteredContacts = getFilteredContacts(contacts, filter);
+  const isFetching = useSelector(getIsLoading);
 
   return (
     // console.log(contacts),
@@ -28,7 +29,10 @@ export const Contacts = ({ onDeleteContact }) => {
           <p>
             {name}: {phone}
           </p>
-          <StyledDeleteContactButton onClick={() => onDeleteContact(id)}>
+          <StyledDeleteContactButton
+            onClick={() => onDeleteContact(id)}
+            disabled={isFetching}
+          >
             Delete
           </StyledDeleteContactButton>
         </StyledContactListItemLi>

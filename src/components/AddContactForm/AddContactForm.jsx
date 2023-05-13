@@ -8,6 +8,8 @@ import {
   StyledLabel,
 } from './AddContactForm.styled';
 import * as yup from 'yup';
+import { getIsLoading } from 'redux/selectors';
+import { useSelector } from 'react-redux';
 
 const initialValues = {
   name: '',
@@ -54,6 +56,8 @@ const AddContactForm = ({ addContact }) => {
     resetForm();
   };
 
+  const isFetching = useSelector(getIsLoading);
+
   handleNameSubmit.propTypes = {
     values: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -63,6 +67,7 @@ const AddContactForm = ({ addContact }) => {
   };
 
   return (
+    // console.log(isFetching),
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
@@ -88,7 +93,9 @@ const AddContactForm = ({ addContact }) => {
           />
           <ErrorForm name="number" />
         </StyledLabel>
-        <StyledButton type="submit">Add contact</StyledButton>
+        <StyledButton type="submit" disabled={isFetching}>
+          {isFetching ? '......Loading' : 'Add contact'}
+        </StyledButton>
       </Form>
     </Formik>
   );
