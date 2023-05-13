@@ -23,10 +23,10 @@ export const Contacts = ({ onDeleteContact }) => {
   return (
     // console.log(contacts),
     <StyledContactsListUL>
-      {filteredContacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, phone }) => (
         <StyledContactListItemLi key={id}>
           <p>
-            {name}: {number}
+            {name}: {phone}
           </p>
           <StyledDeleteContactButton onClick={() => onDeleteContact(id)}>
             Delete

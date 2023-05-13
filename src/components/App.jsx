@@ -11,7 +11,7 @@ import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 /* /// */
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts, deleteContact, addContact } from 'redux/operations';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,11 +34,11 @@ const App = () => {
       alert(`${name} is already in contacts.`);
       return;
     }
-    // dispatch(addContact(name, number));
+    dispatch(addContact({ name: name, phone: number }));
   };
 
   const handleDeleteContact = contactId => {
-    // dispatch(deleteContact(contactId));
+    dispatch(deleteContact(contactId));
   };
 
   const handleFilterChange = event => {
